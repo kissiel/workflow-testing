@@ -17,8 +17,9 @@ jobs:
               run: |
                 git --version
                 tree
-                git log  --since="4 minutes ago" --oneline -- foo
-                commit_count=$(git log  --since="4 minutes ago" --oneline -- no_such_dir |wc -l)
+                date
+                git log  --since="4 minutes ago" -- foo
+                commit_count=$(git log  --since="4 minutes ago" --oneline -- foo |wc -l)
                 echo "new_commit_count=$commit_count" | tee $GITHUB_OUTPUT
 
 
