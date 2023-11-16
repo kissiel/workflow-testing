@@ -1,23 +1,26 @@
 name: Conditional Commit Workflow
 
-on: [workflow_dispatch]
-  jobs:
+on:
+    workflow_dispatch:
+
+
+jobs:
     check_commits:
-      runs-on: ubuntu-latest
-      outputs:
-        new_commits: ${{ steps.commit_check.outputs.new_commits }}
-      steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Check for Commits
-        id: commit_check
-        run: |
-          echo "new_commits=1" >> $GITHUB_OUTPUT
+        runs-on: ubuntu-latest
+        outputs:
+            new_commits: ${{ steps.commit_check.outputs.new_commits }}
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Check for Commits
+              id: commit_check
+              run: |
+                echo "new_commits=1" >> $GITHUB_OUTPUT
 
     process_commits:
       needs: check_commits
       runs-on: ubuntu-latest
-      if: needs.check_commits.outputs.has_commits > 0
+      if: needs.check_commits.outputs.new_commits > 0
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
