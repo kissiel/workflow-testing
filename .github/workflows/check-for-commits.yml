@@ -18,8 +18,8 @@ jobs:
                 git --version
                 tree
                 date
-                git log  --since="4 minutes ago" -- unique_name_hopefully
-                commit_count=$(git log  --since="4 minutes ago" --oneline -- unique_name_hopefully |wc -l)
+                git log  --since="4 minutes ago" -- bar
+                commit_count=$(git log  --since="4 minutes ago" --oneline -- bar |wc -l)
                 echo "new_commit_count=$commit_count" | tee $GITHUB_OUTPUT
 
 
