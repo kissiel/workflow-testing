@@ -5,22 +5,23 @@ on:
 
 
 jobs:
-    check_commits:
+    check_for_commits:
         runs-on: ubuntu-latest
         outputs:
-            new_commits: ${{ steps.commit_check.outputs.new_commits }}
+            new_commit_count: ${{ steps.commit_check.outputs.new_commit_count }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
             - name: Check for Commits
               id: commit_check
               run: |
-                git log  --since="4 minutes ago" --oneline -- foo |wc -l > $GITHUB_OUTPUT
+                commit_count=$(git log  --since="4 minutes ago" --oneline -- foo |wc -l)
+                echo "new_commit_count=$commit_count" >> $GITHUB_OUTPUT
 
     run_the_build:
-      needs: check_commits
+      needs: check_for_commits
       runs-on: ubuntu-latest
-      if: needs.check_commits.outputs.new_commits > 0
+      if: needs.check_for_commits.outputs.new_commit_count > 0
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
