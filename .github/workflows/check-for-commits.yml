@@ -17,6 +17,7 @@ jobs:
               run: |
                 commit_count=$(git log  --since="4 minutes ago" --oneline -- foo |wc -l)
                 echo "new_commit_count=$commit_count" | tee $GITHUB_OUTPUT
+                cat $GITHUB_OUTPUT
 
     run_the_build:
       needs: check_for_commits
