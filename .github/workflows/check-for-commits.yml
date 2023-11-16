@@ -15,11 +15,7 @@ jobs:
             - name: Check for Commits
               id: commit_check
               run: |
-                git --version
-                tree
-                date
-                git log -p --since="4 minutes ago" -- bar
-                commit_count=$(git log  --since="4 minutes ago" --oneline -- bar |wc -l)
+                commit_count=$(git log  --since="1 minute ago" --oneline -- bar |wc -l)
                 echo "new_commit_count=$commit_count" | tee $GITHUB_OUTPUT
 
 
