@@ -19,7 +19,7 @@ jobs:
                 tree
                 date
                 git log  --since="4 minutes ago" -- foo/*
-                commit_count=$(git log  --since="4 minutes ago" --oneline -- foo/* |wc -l)
+                commit_count=$(git log  --oneline -- foo/* |wc -l)
                 echo "new_commit_count=$commit_count" | tee $GITHUB_OUTPUT
 
 
