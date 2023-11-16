@@ -15,16 +15,16 @@ jobs:
             - name: Check for Commits
               id: commit_check
               run: |
-                echo "new_commits=1" >> $GITHUB_OUTPUT
+                git log  --since="4 minutes ago" --oneline -- foo |wc -l > $GITHUB_OUTPUT
 
-    process_commits:
+    run_the_build:
       needs: check_commits
       runs-on: ubuntu-latest
       if: needs.check_commits.outputs.new_commits > 0
       steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Process Commits
+      - name: Run the actual build
         run: |
           echo "THE WORKFLOW GOES BRRRR"
 
